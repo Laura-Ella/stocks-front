@@ -8,7 +8,7 @@ class Stocks extends Component {
         <h1>Stocks</h1>
         <ul>
           {this.props.stocks.map(stock => (
-            <li>{stock.symbol} - ${stock.bid} - ${stock.ask} - {stock.volume} shares</li>
+            <li><a href="/stocks">{stock.symbol}</a> - ${stock.bid} - ${stock.ask} - {stock.volume} shares</li>
           ))}
           <button>Add to Watchlist</button>
         </ul>
