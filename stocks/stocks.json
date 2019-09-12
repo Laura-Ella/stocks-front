@@ -1,0 +1,57 @@
+
+    [{
+        "symbol": "NBEV",
+        "bid": 5.34,
+        "ask": 5.39,
+        "percentChange": 2,
+        "volume": 423049
+    },
+    {
+        "symbol": "BABA",
+        "bid": 5.34,
+        "ask": 5.39,
+        "percentChange": 2,
+        "volume": 423049
+    },    
+    {
+        "symbol": "DCIX",
+        "bid": 5.34,
+        "ask": 5.39,
+        "percentChange": 2,
+        "volume": 423049
+    },    
+    {
+        "symbol": "AAPL",
+        "bid": 5.34,
+        "ask": 5.39,
+        "percentChange": 2,
+        "volume": 423049
+    },    
+    {
+        "symbol": "ZOES",
+        "bid": 5.34,
+        "ask": 5.39,
+        "percentChange": 2,
+        "volume": 423049
+    },    
+    {
+        "symbol": "GNC",
+        "bid": 5.34,
+        "ask": 5.39,
+        "percentChange": 2,
+        "volume": 423049
+    },    
+    {
+        "symbol": "AMZN",
+        "bid": 5.34,
+        "ask": 5.39,
+        "percentChange": 2,
+        "volume": 423049
+    },    
+    {
+        "symbol": "LFIN",
+        "bid": 5.34,
+        "ask": 5.39,
+        "percentChange": 2,
+        "volume": 423049
+    }]
