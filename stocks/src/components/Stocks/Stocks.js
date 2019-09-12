@@ -1,17 +1,16 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Stocks extends Component {
   render() {
     console.log(this.props.stocks);
+    console.log(this.props)
     return (
       <div>
         <h1>Stocks</h1>
-        <ul>
-          {this.props.stocks.map(stock => (
-            <li><a href="/stocks">{stock.symbol}</a> - ${stock.bid} - ${stock.ask} - {stock.volume} shares</li>
-          ))}
-          <button>Add to Watchlist</button>
-        </ul>
+        {this.props.stocks.map(stock => (
+            <Link to={"/stocks/" + stock.symbol}><li>{stock.symbol}</li></Link>
+        ))}
       </div>
     );
   }

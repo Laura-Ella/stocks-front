@@ -2,9 +2,15 @@ import React, {Component} from 'react'
 
 class StockDetail extends Component {
     render() {
+        console.log(this.props)
         return (
             <div>
-                <h1>Sample Stock</h1>
+                <h1>Stock details</h1>
+                {/* <ul>
+                    <li>{this.props}</li>
+                </ul> */}
+                <button>Add to Watchlist</button>
+                <button>Remove from Watchlist</button>
             </div>
         )
     }

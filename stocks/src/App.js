@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link, Route } from "react-router-dom";
 import Stocks from "./components/Stocks/Stocks";
 import Watchlist from "./components/Watchlist/Watchlist";
-import getCharts from "../getCharts"
 import axios from "axios";
 import "./App.css";
+import StockDetail from "./components/StockDetail/StockDetail";
 
 class App extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class App extends Component {
         <nav>
           <Link to="/stocks">Stocks</Link>
           <Link to="/watchlist">Watchlist</Link>
-          <Link to="/stockdetail">Stock Detail</Link>
+          <Link to="/stocks/:symbol">Stock Detail</Link>
         </nav>
         <Route
           path="/stocks"
@@ -43,7 +43,10 @@ class App extends Component {
             <Stocks stocks={this.state.stocks} {...routerProps} />
           )}
         />
-        <Route path="/watchlist" exact component={Watchlist} />        
+        <Route path="/watchlist" exact component={Watchlist} />
+          <Route path="/stocks/:symbol" exact render={routerProps => (
+            <StockDetail stocks={this.state.stocks} {...routerProps} />
+          )}/>        
       </div>
     );
   }
