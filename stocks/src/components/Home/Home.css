@@ -1,0 +1,49 @@
+.dow {
+    background: url("../../images/DOW.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 200px;
+    border-radius: 3px;
+    border: solid black 1px;
+
+}
+
+.nsdq {
+    background: url("../../images/NSDQ.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 200px;
+    width: auto;
+    border-radius: 3px;
+    border: solid black 1px
+
+}
+
+.spy {
+    background: url("../../images/SPY.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    border-radius: 3px;
+    border: solid black 1px;
+    /* height: 200px */
+    width: 100px;
+    height: auto
+}
+
+img {
+    padding: 150px;
+    margin: 40px
+}
+
+.home {
+    /* display: flex; */
+    /* justify-content: space-around; */
+    /* justify-content: center; */
+    /* align-content: center  */
+}

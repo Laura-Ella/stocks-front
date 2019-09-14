@@ -5,12 +5,15 @@ import Watchlist from "./components/Watchlist/Watchlist";
 import axios from "axios";
 import "./App.css";
 import StockDetail from "./components/StockDetail/StockDetail";
+import Home from "./components/Home/Home";
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stocks: []
+      stocks: [],
+      watchlist: []
     };
   }
 
@@ -32,10 +35,13 @@ class App extends Component {
     return (
       <div>
         <nav>
+          <Link to="/home">Home</Link>
           <Link to="/stocks">Stocks</Link>
-          <Link to="/watchlist">Watchlist</Link>
-          <Link to="/stocks/:symbol">Stock Detail</Link>
+          <Link to="/watchlist/:symbol">Watchlist</Link>
+          {/* <Link to="/stock/:symbol">Stock Detail</Link> */}
         </nav>
+        <Route path="/home"
+        exact component={Home} />
         <Route
           path="/stocks"
           exact
@@ -43,10 +49,20 @@ class App extends Component {
             <Stocks stocks={this.state.stocks} {...routerProps} />
           )}
         />
-        <Route path="/watchlist" exact component={Watchlist} />
-          <Route path="/stocks/:symbol" exact render={routerProps => (
+        <Route
+          path="/watchlist/:symbol"
+          exact
+          render={routerProps => (
+            <Watchlist stocks={this.state.stocks} {...routerProps} />
+          )}
+        />
+        <Route
+          path="/stock/:symbol"
+          exact
+          component={routerProps => (
             <StockDetail stocks={this.state.stocks} {...routerProps} />
-          )}/>        
+          )}
+        />
       </div>
     );
   }
