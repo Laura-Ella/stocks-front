@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom"
 import Stocks from "./components/Stocks/Stocks";
 import Watchlist from "./components/Watchlist/Watchlist";
 import axios from "axios";
