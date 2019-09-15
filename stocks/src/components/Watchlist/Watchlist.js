@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import axios from 'axios'
+import axios from 'axios'
 
 class Watchlist extends Component {
   constructor(props) {
@@ -9,22 +9,22 @@ class Watchlist extends Component {
     };
   }
 
-//   componentDidMount() {
-//     axios
-//       .get("https://stocks-api-lr.herokuapp.com/")
-//       .then(res => {
-//         this.setState({ stocks: res.data });
-//         console.log(res);
-//         console.log(this.state.stocks);
-//       })
-//       .catch(err => {
-//         console.error(err);
-//       });
-//   }
+  componentDidMount() {
+    axios
+      .get("https://stocks-api-lr.herokuapp.com/")
+      .then(res => {
+        this.setState({ stocks: res.data });
+        console.log(res);
+        console.log(this.state.stocks);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
   render() {
     console.log(this.props);
-    let stocks = this.props.stocks.map(stock => {
+    let stocks = this.state.stocks.map(stock => {
         return (
             <ul>
                 <li>{stock.symbol}</li>

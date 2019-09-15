@@ -14,24 +14,38 @@ import Chart from "./components/Chart/Chart"
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       stocks: [],
-      watchlist: []
     };
   }
 
-  componentDidMount() {
-    axios
-      .get("https://stocks-api-lr.herokuapp.com/")
-      .then(res => {
-        this.setState({ stocks: res.data });
-        console.log(res);
-        console.log(this.state.stocks);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
+  // componentDidMount() {
+  //   var unirest = require("unirest");
+
+  //   var req = unirest(
+  //     "GET",
+  //     "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-quotes"
+  //   );
+
+  //   req.query({
+  //     region: "US",
+  //     lang: "en",
+  //     symbols: "BAC,AAPL,GOOG,WKHS,FB,MSFT,BA,AMZN,DIS"
+  //   });
+
+  //   req.headers({
+  //     "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
+  //     "x-rapidapi-key": "286817a66emsh28a4e95f2ce95ddp178e23jsn582bf9bb6287"
+  //   });
+
+  //   req.end(res => {
+  //     if (res.error) throw new Error(res.error);
+  //     console.log(res.body.quoteResponse.result);
+  //     this.setState({ stocks: res.body.quoteResponse.result });
+  //     console.log(this.state)
+  //   });
+  // }
 
   render() {
     console.log(this.state);
@@ -41,7 +55,7 @@ class App extends Component {
           <Link to="/home">Home</Link>
           <Link to="/stocks">Stocks</Link>
           <Link to="/news">News</Link>
-          <Link to="/watchlist/:symbol">Watchlist</Link>
+          <Link to="/watchlist/">Watchlist</Link>
           <Link to="/table">Table</Link>
           <Link to="/chart">Chart</Link>
           {/* <Link to="/stock/:symbol">Stock Detail</Link> */}
@@ -61,7 +75,7 @@ class App extends Component {
         />
         <Route path="/news" exact component={Home}/>
         <Route
-          path="/watchlist/:symbol"
+          path="/watchlist/"
           exact
           render={routerProps => (
             <Watchlist stocks={this.state.stocks} {...routerProps} />

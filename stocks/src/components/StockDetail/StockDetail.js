@@ -19,7 +19,7 @@ class StockDetail extends Component {
 
     axios
       .get(
-        // `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=6LOWY23ZL9RSJMI7`
+        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=6LOWY23ZL9RSJMI7`
       )
       .then(response => {
         let data = response.data["Global Quote"];
@@ -95,13 +95,11 @@ class StockDetail extends Component {
           <p>Percent Change: {stock["10. change percent"]}%</p>
           <p>Volume: {stock["06. volume"]}</p>
           <div className="stockimg">
-            <img src="" />
+            {/* <img src="" /> */}
           </div>
         </div>
         <div>
-          <button onClick={this.handleSubmit}>
-            Add to Watchlist
-          </button>
+          <button onClick={this.handleSubmit}>Add to Watchlist</button>
           <button onClick={this.handleRemove}>Remove from Watchlist</button>
         </div>
       </div>

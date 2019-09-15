@@ -45,16 +45,13 @@ img {
     /* align-content: center  */
 }
 
-/* .stocks {
+.stocks {
     float: left;
-    border: solid black 1px;
-    background-color: slategray
-} */
+}
 
 .news {
     float: right;
     border: solid black 1px;
-    background-color: slategray
 }
 
 .stocklist {
@@ -62,4 +59,12 @@ img {
     /* border: solid black 1px; */
     /* margin: 2px; */
     padding: 7px        
+}
+
+td {
+    text-align: center;
+}
+
+table {
+    border: solid black 1px
 }

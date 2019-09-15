@@ -1,24 +1,42 @@
 import React, { Component } from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 class Home extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       list: []
-    }
+    };
   }
 
+  // renderHeader = () => {
+  //   let tableHeader = Object.keys(this.props.stocks[0]);
+  //   return tableHeader.map((key, index) => {
+  //     return <th key={index}>{key.toLocaleUpperCase()}</th>;
+  //   });
+  // };
+
   render() {
-    let list = this.props.stocks.map(stock => {
+    console.log(this.props);
+
+    let tableData = this.props.stocks.map((stock, index) => {
+      const {
+        symbol,
+        regularMarketPrice,
+        regularMarketChangePercent,
+        regularMarketVolume
+      } = stock;
       return (
-        <div className="stockcontainer">
+        <tr key={symbol}>
           <Link to={"/stock/" + stock.symbol}>
-            <a href="#" className="stocklist">{stock.symbol} ${stock.bid} ${stock.ask} {stock.percentChange}% {stock.volume} shares</a>
+            <td>{symbol}</td>
           </Link>
-        </div>
+          <td>${regularMarketPrice}</td>
+          <td>{regularMarketChangePercent}%</td>
+          <td>{regularMarketVolume}</td>
+        </tr>
       );
     });
 
@@ -36,19 +54,24 @@ class Home extends Component {
           </div>
         </div>
         <div className="stocks">
-            <h2>Stocks</h2>
-            <div>{list}</div>
+          <h2>Stocks</h2>
+          <table>
+            <tbody>
+              {/* <tr>{this.renderHeader()}</tr> */}
+              {tableData}
+            </tbody>
+          </table>
         </div>
         <div className="news">
-            <h2>News</h2>
-            <div>
+          <h2>News</h2>
+          <div>
             <a href="#">Lorem ipsum</a>
-            </div>
-            <a href="#">Lorem ipsum</a>
-            <a href="#">Lorem ipsum</a>
-            <a href="#">Lorem ipsum</a>
-            <a href="#">Lorem ipsum</a>
-            <a href="#">Lorem ipsum</a>
+          </div>
+          <a href="#">Lorem ipsum</a>
+          <a href="#">Lorem ipsum</a>
+          <a href="#">Lorem ipsum</a>
+          <a href="#">Lorem ipsum</a>
+          <a href="#">Lorem ipsum</a>
         </div>
       </div>
     );
