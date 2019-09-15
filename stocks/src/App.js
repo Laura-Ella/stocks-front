@@ -37,11 +37,14 @@ class App extends Component {
         <nav>
           <Link to="/home">Home</Link>
           <Link to="/stocks">Stocks</Link>
+          <Link to="/news">News</Link>
           <Link to="/watchlist/:symbol">Watchlist</Link>
           {/* <Link to="/stock/:symbol">Stock Detail</Link> */}
         </nav>
         <Route path="/home"
-        exact component={Home} />
+        exact render={routerProps => (
+          <Home stocks={this.state.stocks} {...routerProps} />
+        )} />
         <Route
           path="/stocks"
           exact
@@ -49,6 +52,7 @@ class App extends Component {
             <Stocks stocks={this.state.stocks} {...routerProps} />
           )}
         />
+        <Route path="/news" exact component={Home}/>
         <Route
           path="/watchlist/:symbol"
           exact
