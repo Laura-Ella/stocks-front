@@ -2,13 +2,15 @@ import React, { Component } from "react";
 // import { Link, Route } from "react-router-dom";
 // import Watchlist from "../Watchlist/Watchlist";
 import axios from "axios";
+import "../StockDetail/StockDetail.css"
 
 class StockDetail extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      detail: []
+      detail: [],
+      watchlist: []
     };
   }
 
@@ -27,28 +29,28 @@ class StockDetail extends Component {
       });
   }
 
-  // handleSubmit = evt => {
-  //   evt.preventDefault();
-  //   this.props.stocks.map(stock => {
-  //     if (this.props.match.params.symbol === stock.symbol) {
-  //       console.log(stock);
-  //       this.setState({ symbol: stock.bid });
-  //     }
-  //   });
-  //   // console.log(set);
-  //   console.log(this.state);
+  handleSubmit = evt => {
+    evt.preventDefault();
+    this.props.stocks.map(stock => {
+      if (this.props.match.params.symbol === stock.symbol) {
+        console.log(stock);
+        this.setState({ watchlist: stock.bid });
+      }
+    });
+    // console.log(set);
+    console.log(this.state);
 
-  //   axios
-  //     .post("https://stocks-api-lr.herokuapp.com/", {
-  //       symbol: this.props.match.params.symbol
-  //     })
-  //     .then(response => {
-  //       console.log(response);
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //     });
-  // };
+    axios
+      .post("https://stocks-api-lr.herokuapp.com/", {
+        symbol: this.props.match.params.symbol
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
 
   handleRemove = evt => {
     evt.preventDefault();
@@ -71,11 +73,15 @@ class StockDetail extends Component {
       console.log(stock);
       return (
         <div>
+          <h2>{stock.symbol}</h2>
           <div>
-            <h2>{stock.symbol}</h2>
             <p>Bid: {stock.bid}</p>
             <p>Ask: {stock.ask}</p>
+            <p>Percent Change: {stock.percentChange}</p>
             <p>Volume: {stock.volume}</p>
+            <div className="stockimg">
+              <img src="" />
+            </div>
           </div>
           <div></div>
         </div>

@@ -14,9 +14,9 @@ class Home extends Component {
   render() {
     let list = this.props.stocks.map(stock => {
       return (
-        <div>
+        <div className="stockcontainer">
           <Link to={"/stock/" + stock.symbol}>
-            <li>{stock.symbol} ${stock.bid} ${stock.ask} {stock.percentChange}% {stock.volume} shares</li>
+            <a href="#" className="stocklist">{stock.symbol} ${stock.bid} ${stock.ask} {stock.percentChange}% {stock.volume} shares</a>
           </Link>
         </div>
       );
@@ -35,11 +35,11 @@ class Home extends Component {
             <img src="" />
           </div>
         </div>
-        <div>
+        <div className="stocks">
             <h2>Stocks</h2>
             <div>{list}</div>
         </div>
-        <div>
+        <div className="news">
             <h2>News</h2>
             <div>
             <a href="#">Lorem ipsum</a>

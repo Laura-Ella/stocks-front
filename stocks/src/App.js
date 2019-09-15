@@ -6,6 +6,8 @@ import axios from "axios";
 import "./App.css";
 import StockDetail from "./components/StockDetail/StockDetail";
 import Home from "./components/Home/Home";
+import Table from "./components/Table/Table"
+import Chart from "./components/Chart/Chart"
 
 
 class App extends Component {
@@ -39,8 +41,12 @@ class App extends Component {
           <Link to="/stocks">Stocks</Link>
           <Link to="/news">News</Link>
           <Link to="/watchlist/:symbol">Watchlist</Link>
+          <Link to="/table">Table</Link>
+          <Link to="/chart">Chart</Link>
           {/* <Link to="/stock/:symbol">Stock Detail</Link> */}
         </nav>
+        <Route path="/table" exact component={Table} />
+        <Route path="/chart" exact component={Chart} />
         <Route path="/home"
         exact render={routerProps => (
           <Home stocks={this.state.stocks} {...routerProps} />

@@ -1,0 +1,10 @@
+.stockimg {
+    background: url("../../images/NSDQ.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 200px;
+    border-radius: 3px;
+    border: solid black 1px
+}
