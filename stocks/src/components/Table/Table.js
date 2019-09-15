@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import "./Table.css"
+import axios from 'axios'
+import { chownSync } from 'fs'
 
 class Table extends Component {
     constructor(props) {
@@ -34,6 +36,18 @@ class Table extends Component {
             ]
         }
     }
+
+    // componentDidMount() {
+    //     // const symbol = this.props.match.params.symbol
+    //     axios
+    //     .get(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=6LOWY23ZL9RSJMI7`)
+    //     .then(response => {
+    //         console.log(response)
+    //     })
+    //     .catch(err => {
+    //         console.error(err)
+    //     })
+    // }
 
     renderHeader = () => {
         let tableHeader = Object.keys(this.state.stocks[0])
