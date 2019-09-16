@@ -1,0 +1,31 @@
+/* .urltoimage {
+    width: 100%;
+    height: auto;
+    float: left
+} */
+
+/* .clearfix {
+    overflow: auto
+} */
+
+/* .newstext {
+    float: right
+} */
+
+.container {
+    /* display: flex; */
+    /* object-fit: contain; */
+    overflow: auto
+}
+
+.urltoimage {
+    float: left
+}
+
+.urltoimage img {
+    display: block
+}
+
+.newstext {
+    margin-left: 100px
+}

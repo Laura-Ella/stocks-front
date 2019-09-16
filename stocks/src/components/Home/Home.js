@@ -54,7 +54,7 @@ class Home extends Component {
           </div>
         </div>
         <div className="stocks">
-          <h2>Stocks</h2>
+          <h2>Popular Stocks</h2>
           <table>
             <tbody>
               {/* <tr>{this.renderHeader()}</tr> */}

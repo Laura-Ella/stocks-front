@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import {Button} from 'reactstrap'
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import Stocks from "./components/Stocks/Stocks";
 import Watchlist from "./components/Watchlist/Watchlist";
@@ -9,6 +10,8 @@ import StockDetail from "./components/StockDetail/StockDetail";
 import Home from "./components/Home/Home";
 import Table from "./components/Table/Table"
 import Chart from "./components/Chart/Chart"
+import News from "./components/News/News"
+
 
 
 class App extends Component {
@@ -17,6 +20,9 @@ class App extends Component {
 
     this.state = {
       stocks: [],
+      search: '',
+      matches: [],
+      redirect: false
     };
   }
 
@@ -47,11 +53,32 @@ class App extends Component {
   //   });
   // }
 
+  handleChange = evt => {
+    this.setState({search: evt.target.value})
+  }
+
+  handleSubmit = () => {
+    const search = this.state.search
+    axios
+      .get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${search}&apikey=6LOWY23ZL9RSJMI7`)
+      .then(response => {
+        console.log(response)
+        this.setState({matches: response.data.bestMatches[0]})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   render() {
-    console.log(this.state);
+    console.log(this.state.matches);
     return (
       <div>
         <nav>
+          <div>
+          <input type="text" name="search" placeholder="Stock Symbol" value={this.state.search} onChange={this.handleChange}></input>
+          <Link to={"/stock/" + this.state.search}><button type="submit" onClick={this.handleSubmit}>Submit</button></Link>
+          </div>
           <Link to="/home">Home</Link>
           <Link to="/stocks">Stocks</Link>
           <Link to="/news">News</Link>
@@ -73,7 +100,7 @@ class App extends Component {
             <Stocks stocks={this.state.stocks} {...routerProps} />
           )}
         />
-        <Route path="/news" exact component={Home}/>
+        <Route path="/news" exact component={News}/>
         <Route
           path="/watchlist/"
           exact
