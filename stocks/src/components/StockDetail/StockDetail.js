@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-// import { Link, Route } from "react-router-dom";
-// import Watchlist from "../Watchlist/Watchlist";
 import axios from "axios";
 import "../StockDetail/StockDetail.css";
+var CanvasJSReact = require("../../canvasjs.react");
+var CanvasJSChart = CanvasJSReact.default.CanvasJSChart;
 
+var dataPoints = [];
 class StockDetail extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,7 @@ class StockDetail extends Component {
 
   componentDidMount() {
     const symbol = this.props.match.params.symbol;
+    var chart = this.chart;
 
     axios
       .get(
@@ -29,17 +31,55 @@ class StockDetail extends Component {
         console.error(err);
       });
 
-    // axios
-    //   .get(`https://stocks-api-lr.herokuapp.com/${symbol}`)
-    //   .then(response => {
-    //     console.log(response.data);
-    //     let detail = response.data;
-    //     this.setState({ detail: detail });
-    //   })
-    //   .catch(err => {
-    //     console.error(err);
-    //   });
+      axios
+        .get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=6LOWY23ZL9RSJMI7`)
+        .then(response => {
+          console.log(response);
+          return response;
+        })
+        .then(data => {
+          let chartData = data.data["Time Series (Daily)"];
+          console.log(chartData)
+          // console.log(chartData["2019-04-24"]);
+          for (var key in chartData) {
+            console.log(key);
+            dataPoints.push({
+              x: new Date(key),
+              y: parseInt(chartData[key]["1. open"])
+            });
+            // console.log(chartData[key])
+            console.log(dataPoints);
+          }
+          chart.render();
+        });
+  
   }
+
+  // componentWillMount() {
+  //   const symbol = this.props.match.params.symbol;
+
+  //   var chart = this.chart;
+  //   axios
+  //     .get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=demo`)
+  //     .then(response => {
+  //       console.log(response);
+  //       return response;
+  //     })
+  //     .then(data => {
+  //       let chartData = data.data["Time Series (Daily)"];
+  //       // console.log(chartData["2019-04-24"]);
+  //       for (var key in chartData) {
+  //         console.log(key);
+  //         dataPoints.push({
+  //           x: new Date(key),
+  //           y: parseInt(chartData[key]["1. open"])
+  //         });
+  //         // console.log(chartData[key])
+  //         console.log(dataPoints);
+  //       }
+  //       chart.render();
+  //     });
+  // }
 
   handleSubmit = evt => {
     evt.preventDefault();
@@ -80,11 +120,28 @@ class StockDetail extends Component {
 
   render() {
     console.log(this.props);
-    console.log(this.state.detail["02. open"]);
+    console.log(this.state.detail);
     let stock = this.state.detail;
+    const options = {
+      theme: "light2",
+      title: {
+        text: "Stock Price of NIFTY 50"
+      },
+      axisY: {
+        title: "Price in USD",
+        prefix: "$",
+        includeZero: false
+      },
+      data: [
+        {
+          type: "line",
+          xValueFormatString: "MMM YYYY",
+          yValueFormatString: "$#,##0.00",
+          dataPoints: dataPoints
+        }
+      ]
+    };
 
-    // let stockDetail = this.state.detail.map(stock => {
-    // console.log(stock);
     return (
       <div>
         <h2>{stock["01. symbol"]}</h2>
@@ -96,6 +153,7 @@ class StockDetail extends Component {
           <p>Volume: {stock["06. volume"]}</p>
           <div className="stockimg">
             {/* <img src="" /> */}
+            <CanvasJSChart options={options} onRef={ref => (this.chart = ref)} />
           </div>
         </div>
         <div>
@@ -104,24 +162,6 @@ class StockDetail extends Component {
         </div>
       </div>
     );
-
-    // });
-
-    // return (
-    //   <div>
-    //     <h1>Stock details</h1>
-    //     <p>{stockDetail}</p>
-    // <button onChange={this.handleChange} onClick={this.handleSubmit}>
-    //   Add to Watchlist
-    // </button>
-    // <button onClick={this.handleRemove}>Remove from Watchlist</button>
-    //     {/* <Link to="/watchlist">Watchlist</Link>
-    //     <Route
-    //       path="/watchlist"
-    //       component={Watchlist}
-    //     /> */}
-    //   </div>
-    // );
   }
 }
 
