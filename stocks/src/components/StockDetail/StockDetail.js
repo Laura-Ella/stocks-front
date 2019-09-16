@@ -11,7 +11,8 @@ class StockDetail extends Component {
 
     this.state = {
       detail: [],
-      watchlist: []
+      watchlist: [],
+      news: []
     };
   }
 
@@ -31,55 +32,53 @@ class StockDetail extends Component {
         console.error(err);
       });
 
-      axios
-        .get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=6LOWY23ZL9RSJMI7`)
-        .then(response => {
-          console.log(response);
-          return response;
-        })
-        .then(data => {
-          let chartData = data.data["Time Series (Daily)"];
-          console.log(chartData)
-          // console.log(chartData["2019-04-24"]);
-          for (var key in chartData) {
-            console.log(key);
-            dataPoints.push({
-              x: new Date(key),
-              y: parseInt(chartData[key]["1. open"])
-            });
-            // console.log(chartData[key])
-            console.log(dataPoints);
-          }
-          chart.render();
+    axios
+      .get(
+        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=6LOWY23ZL9RSJMI7`
+      )
+      .then(response => {
+        console.log(response);
+        return response;
+      })
+      .then(data => {
+        let chartData = data.data["Time Series (Daily)"];
+        console.log(chartData);
+        // console.log(chartData["2019-04-24"]);
+        for (var key in chartData) {
+          // console.log(key);
+          dataPoints.push({
+            x: new Date(key),
+            y: parseFloat(chartData[key]["1. open"])
+          });
+          // console.log(chartData[key])
+          // console.log(dataPoints);
+        }
+        chart.render();
+
+        var unirest = require("unirest");
+
+        var req = unirest(
+          "GET",
+          "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-news"
+        );
+
+        req.query({
+          region: "US",
+          category: "AAPL"
         });
-  
+
+        req.headers({
+          "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
+          "x-rapidapi-key": "286817a66emsh28a4e95f2ce95ddp178e23jsn582bf9bb6287"
+        });
+
+        req.end(res => {
+          if (res.error) throw new Error(res.error);
+          console.log(res.body);
+          this.setState({ news: res.body.items.result });
+        });
+      });
   }
-
-  // componentWillMount() {
-  //   const symbol = this.props.match.params.symbol;
-
-  //   var chart = this.chart;
-  //   axios
-  //     .get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=demo`)
-  //     .then(response => {
-  //       console.log(response);
-  //       return response;
-  //     })
-  //     .then(data => {
-  //       let chartData = data.data["Time Series (Daily)"];
-  //       // console.log(chartData["2019-04-24"]);
-  //       for (var key in chartData) {
-  //         console.log(key);
-  //         dataPoints.push({
-  //           x: new Date(key),
-  //           y: parseInt(chartData[key]["1. open"])
-  //         });
-  //         // console.log(chartData[key])
-  //         console.log(dataPoints);
-  //       }
-  //       chart.render();
-  //     });
-  // }
 
   handleSubmit = evt => {
     evt.preventDefault();
@@ -90,8 +89,6 @@ class StockDetail extends Component {
         // this.setState({ watchlist: stock.bid });
       }
     });
-    // console.log(set);
-    console.log(this.state);
 
     axios
       .post("https://stocks-api-lr.herokuapp.com/", {
@@ -119,13 +116,32 @@ class StockDetail extends Component {
   };
 
   render() {
-    console.log(this.props);
+    const symbol = this.props.match.params.symbol;
+
+    let news = this.state.news.map(news => {
+      return (
+        <div>
+          <div className="urltoimage">
+            {/* <img src={news.urlToImage} /> */}
+          </div>
+          <div className="newstext">
+            <a href={news.link}>
+              <h3>{news.title}</h3>
+            </a>
+            <p>{news.author}</p>
+            {/* <p>{news.summary}</p> */}
+          </div>
+        </div>
+      );
+    });
+
+    console.log(this.state.news);
     console.log(this.state.detail);
     let stock = this.state.detail;
     const options = {
       theme: "light2",
       title: {
-        text: "Stock Price of NIFTY 50"
+        text: `Stock Price of ${symbol}`
       },
       axisY: {
         title: "Price in USD",
@@ -136,7 +152,7 @@ class StockDetail extends Component {
         {
           type: "line",
           xValueFormatString: "MMM YYYY",
-          yValueFormatString: "$#,##0.00",
+          yValueFormatString: "$#,###.00",
           dataPoints: dataPoints
         }
       ]
@@ -149,16 +165,23 @@ class StockDetail extends Component {
           <p>Price: ${stock["05. price"]}</p>
           <p>Open: ${stock["02. open"]}</p>
           <p>High: ${stock["03. high"]}</p>
-          <p>Percent Change: {stock["10. change percent"]}%</p>
+          <p>Percent Change: {stock["10. change percent"]}</p>
           <p>Volume: {stock["06. volume"]}</p>
-          <div className="stockimg">
-            {/* <img src="" /> */}
-            <CanvasJSChart options={options} onRef={ref => (this.chart = ref)} />
+          <div>
+            <button onClick={this.handleSubmit}>Add to Watchlist</button>
+            <button onClick={this.handleRemove}>Remove from Watchlist</button>
           </div>
-        </div>
-        <div>
-          <button onClick={this.handleSubmit}>Add to Watchlist</button>
-          <button onClick={this.handleRemove}>Remove from Watchlist</button>
+
+          <div className="stockimg">
+            <CanvasJSChart
+              options={options}
+              onRef={ref => (this.chart = ref)}
+            />
+          </div>
+          <div>
+            <h3> News</h3>
+            <p>{news}</p>
+          </div>
         </div>
       </div>
     );

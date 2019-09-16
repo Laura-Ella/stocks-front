@@ -22,13 +22,13 @@ class Chart extends Component {
       axisY: {
         title: "Price in USD",
         prefix: "$",
-        includeZero: false
+        includeZero: true
       },
       data: [
         {
           type: "line",
           xValueFormatString: "MMM YYYY",
-          yValueFormatString: "$#,##0.00",
+          yValueFormatString: "$#,###.##",
           dataPoints: dataPoints
         }
       ]
@@ -46,7 +46,7 @@ class Chart extends Component {
     var chart = this.chart;
     axios
       .get(
-        // "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo"
+        "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=DCIX&apikey=demo"
       )
       .then(response => {
         console.log(response);
@@ -54,7 +54,7 @@ class Chart extends Component {
       })
       .then(data => {
         let chartData = data.data["Time Series (Daily)"];
-        console.log(chartData["2019-04-24"]);
+        // console.log(chartData["2019-04-24"]);
         for (var key in chartData) {
           console.log(key);
           dataPoints.push({
