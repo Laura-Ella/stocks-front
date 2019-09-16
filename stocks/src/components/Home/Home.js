@@ -86,7 +86,7 @@ class Home extends Component {
 
     let newsList = this.state.news.map(news => {
       return (
-        <div className="container">
+        <div className="newscontainer">
           <div className="urltoimage">
               {/* <img src={news.urlToImage} /> */}
           </div>
@@ -135,6 +135,7 @@ class Home extends Component {
             <img src="" />
           </div>
         </div>
+        <div className="container">
         <div className="stocks">
           <h2>Popular Stocks</h2>
           <table>
@@ -149,6 +150,7 @@ class Home extends Component {
           <div>
             {newsList}
           </div>
+        </div>
         </div>
       </div>
     );
