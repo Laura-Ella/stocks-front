@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import "../../../stocks.json"
 import axios from "axios";
 import "./News.css"
 
@@ -15,7 +14,7 @@ class News extends Component {
   componentDidMount() {
     axios
       .get(
-        // "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=b516c042bd1a4f04bfbfe3ea6cbc1ae8"
+        "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=b516c042bd1a4f04bfbfe3ea6cbc1ae8"
       )
       .then(response => {
         console.log(response.data.articles);

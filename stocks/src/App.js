@@ -76,7 +76,6 @@ class App extends Component {
           <Link to={"/stock/" + this.state.search}><button type="submit" onClick={this.handleSubmit}>Search</button></Link>
           </div>
           <Link to="/home">Home</Link>
-          <Link to="/stocks">Stocks</Link>
           <Link to="/news">News</Link>
           <Link to="/watchlist/">Watchlist</Link>
         </nav>
@@ -84,13 +83,13 @@ class App extends Component {
         exact render={routerProps => (
           <Home stocks={this.state.stocks} {...routerProps} />
         )} />
-        <Route
+        {/* <Route
           path="/stocks"
           exact
           render={routerProps => (
             <Stocks stocks={this.state.stocks} {...routerProps} />
           )}
-        />
+        /> */}
         <Route path="/news" exact component={News}/>
         <Route
           path="/watchlist/"

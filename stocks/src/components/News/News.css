@@ -13,18 +13,20 @@
 } */
 
 .container {
-    /* display: flex; */
+    display: flex;
     /* object-fit: contain; */
     overflow: auto
 }
 
 .urltoimage {
-    float: left
+    float: left;
+    /* width: 50px; */
+    /* height: 50px */
 }
-
+/* 
 .urltoimage img {
     display: block
-}
+} */
 
 .newstext {
     margin-left: 100px
