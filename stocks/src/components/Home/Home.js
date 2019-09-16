@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 import "./Home.css";
+var CanvasJSReact = require("../../canvasjs.react");
+var CanvasJSChart = CanvasJSReact.default.CanvasJSChart;
 
+
+var dataPoints = [];
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      list: []
+      news: []
     };
   }
 
@@ -18,8 +23,84 @@ class Home extends Component {
   //   });
   // };
 
+  // componentDidMount() {
+  //   console.log(this.props);
+  //   var chart = this.chart;
+  //   axios
+  //     .get(
+  //       "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPY&apikey=6LOWY23ZL9RSJMI7"
+  //     )
+  //     .then(response => {
+  //       console.log(response);
+  //       return response;
+  //     })
+  //     .then(data => {
+  //       let chartData = data.data["Time Series (Daily)"];
+  //       for (var key in chartData) {
+  //         dataPoints.push({
+  //           x: new Date(key),
+  //           y: parseInt(chartData[key]["1. open"])
+  //         });
+  //       }
+  //       chart.render();
+  //     });
+  // }
+
+  componentDidMount() {
+    axios
+      .get(
+        "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=b516c042bd1a4f04bfbfe3ea6cbc1ae8"
+      )
+      .then(response => {
+        console.log(response.data.articles);
+        this.setState({ news: response.data.articles });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
+
+    // const options = {
+    //   theme: "light2",
+    //   title: {
+    //     text: `Stock Price of SPY`
+    //   },
+    //   axisY: {
+    //     title: "Price in USD",
+    //     prefix: "$",
+    //     includeZero: true
+    //   },
+    //   data: [
+    //     {
+    //       type: "line",
+    //       xValueFormatString: "MMM YYYY",
+    //       yValueFormatString: "$#,###.##",
+    //       dataPoints: dataPoints
+    //     }
+    //   ]
+    // };
+
     console.log(this.props);
+
+    let newsList = this.state.news.map(news => {
+      return (
+        <div className="container">
+          <div className="urltoimage">
+              {/* <img src={news.urlToImage} /> */}
+          </div>
+          <div className="newstext">
+            <a href={news.url}>
+              <h3>{news.title}</h3>
+            </a>
+            <p>{news.author}</p>
+            {/* <p>{news.description}</p> */}
+          </div>
+        </div>
+      );
+    });
+
 
     let tableData = this.props.stocks.map((stock, index) => {
       const {
@@ -48,6 +129,7 @@ class Home extends Component {
           </div>
           <div className="spy">
             <img src="" />
+            {/* <CanvasJSChart options={options} onRef={ref => (this.chart = ref)} /> */}
           </div>
           <div className="nsdq">
             <img src="" />
@@ -63,9 +145,9 @@ class Home extends Component {
           </table>
         </div>
         <div className="news">
-          <h2>News</h2>
+          <h2>Headline News</h2>
           <div>
-            <a href="#">Lorem ipsum</a>
+            {newsList}
           </div>
         </div>
       </div>

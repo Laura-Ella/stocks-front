@@ -64,7 +64,7 @@ class StockDetail extends Component {
 
         req.query({
           region: "US",
-          category: "AAPL"
+          category: `${symbol}`
         });
 
         req.headers({

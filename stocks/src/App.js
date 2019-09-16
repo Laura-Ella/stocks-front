@@ -79,9 +79,7 @@ class App extends Component {
           <Link to="/stocks">Stocks</Link>
           <Link to="/news">News</Link>
           <Link to="/watchlist/">Watchlist</Link>
-          <Link to="/chart">Chart</Link>
         </nav>
-        <Route path="/chart" exact component={Chart} />
         <Route path="/home"
         exact render={routerProps => (
           <Home stocks={this.state.stocks} {...routerProps} />
