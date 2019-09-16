@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 
 class Watchlist extends Component {
@@ -27,7 +28,7 @@ class Watchlist extends Component {
     let stocks = this.state.stocks.map(stock => {
         return (
             <ul>
-                <li>{stock.symbol}</li>
+                <Link to={"/stock/" + stock.symbol}>{stock.symbol}</Link>
             </ul>
         )
     })

@@ -67,11 +67,6 @@ class Home extends Component {
           <div>
             <a href="#">Lorem ipsum</a>
           </div>
-          <a href="#">Lorem ipsum</a>
-          <a href="#">Lorem ipsum</a>
-          <a href="#">Lorem ipsum</a>
-          <a href="#">Lorem ipsum</a>
-          <a href="#">Lorem ipsum</a>
         </div>
       </div>
     );
