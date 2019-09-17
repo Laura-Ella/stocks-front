@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 import "./Home.css";
-var CanvasJSReact = require("../../canvasjs.react");
-var CanvasJSChart = CanvasJSReact.default.CanvasJSChart;
 
-
-var dataPoints = [];
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -23,29 +19,6 @@ class Home extends Component {
   //   });
   // };
 
-  // componentDidMount() {
-  //   console.log(this.props);
-  //   var chart = this.chart;
-  //   axios
-  //     .get(
-  //       "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPY&apikey=6LOWY23ZL9RSJMI7"
-  //     )
-  //     .then(response => {
-  //       console.log(response);
-  //       return response;
-  //     })
-  //     .then(data => {
-  //       let chartData = data.data["Time Series (Daily)"];
-  //       for (var key in chartData) {
-  //         dataPoints.push({
-  //           x: new Date(key),
-  //           y: parseInt(chartData[key]["1. open"])
-  //         });
-  //       }
-  //       chart.render();
-  //     });
-  // }
-
   componentDidMount() {
     axios
       .get(
@@ -61,34 +34,13 @@ class Home extends Component {
   }
 
   render() {
-
-    // const options = {
-    //   theme: "light2",
-    //   title: {
-    //     text: `Stock Price of SPY`
-    //   },
-    //   axisY: {
-    //     title: "Price in USD",
-    //     prefix: "$",
-    //     includeZero: true
-    //   },
-    //   data: [
-    //     {
-    //       type: "line",
-    //       xValueFormatString: "MMM YYYY",
-    //       yValueFormatString: "$#,###.##",
-    //       dataPoints: dataPoints
-    //     }
-    //   ]
-    // };
-
     console.log(this.props);
 
     let newsList = this.state.news.map(news => {
       return (
         <div className="newscontainer">
           <div className="urltoimage">
-              {/* <img src={news.urlToImage} /> */}
+            {/* <img src={news.urlToImage} /> */}
           </div>
           <div className="newstext">
             <a href={news.url}>
@@ -100,7 +52,6 @@ class Home extends Component {
         </div>
       );
     });
-
 
     let tableData = this.props.stocks.map((stock, index) => {
       const {
@@ -125,32 +76,29 @@ class Home extends Component {
       <div className="home">
         <div className="images">
           <div className="dow">
-            <img src="" />
+            <img src="" alt="" />
           </div>
           <div className="spy">
-            <img src="" />
-            {/* <CanvasJSChart options={options} onRef={ref => (this.chart = ref)} /> */}
+            <img src="" alt="" />
           </div>
           <div className="nsdq">
-            <img src="" />
+            <img src="" alt="" />
           </div>
         </div>
         <div className="container">
-        <div className="stocks">
-          <h2>Popular Stocks</h2>
-          <table>
-            <tbody>
-              {/* <tr>{this.renderHeader()}</tr> */}
-              {tableData}
-            </tbody>
-          </table>
-        </div>
-        <div className="news">
-          <h2>Headline News</h2>
-          <div>
-            {newsList}
+          <div className="stocks">
+            <h2>Popular Stocks</h2>
+            <table>
+              <tbody>
+                {/* <tr>{this.renderHeader()}</tr> */}
+                {tableData}
+              </tbody>
+            </table>
           </div>
-        </div>
+          <div className="news">
+            <h2>Headline News</h2>
+            <div>{newsList}</div>
+          </div>
         </div>
       </div>
     );

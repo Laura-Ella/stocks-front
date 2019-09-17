@@ -25,8 +25,13 @@ class StockDetail extends Component {
         `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=6LOWY23ZL9RSJMI7`
       )
       .then(response => {
-        let data = response.data["Global Quote"];
-        this.setState({ detail: data });
+        return response.data
+        // let data = response.data["Global Quote"];
+        // this.setState({ detail: data });
+      })
+      .then(data => {
+        let resdata = data["Global Quote"];
+        this.setState({detail: resdata})
       })
       .catch(err => {
         console.error(err);
@@ -128,7 +133,7 @@ class StockDetail extends Component {
             <a href={news.link}>
               <h3>{news.title}</h3>
             </a>
-            <p>{news.author}</p>
+            {news.author}
             {/* <p>{news.summary}</p> */}
           </div>
         </div>
@@ -180,7 +185,7 @@ class StockDetail extends Component {
           </div>
           <div>
             <h3> News</h3>
-            <p>{news}</p>
+            {news}
           </div>
         </div>
       </div>

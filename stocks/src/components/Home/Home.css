@@ -30,7 +30,6 @@
     border-radius: 3px;
     border: solid black 1px;
     height: 200px
-    /* width: 100% */
 }
 
 img {
@@ -40,9 +39,6 @@ img {
 
 .images {
     display: flex;
-    /* justify-content: space-around; */
-    /* justify-content: center; */
-    /* align-content: center  */
 }
 
 .stocks {
@@ -51,18 +47,15 @@ img {
 
 .news {
     float: right;
-    
-    /* border: solid black 1px; */
 }
 
 h2 {
-    text-align: center
+    text-align: center;
+    text-decoration: underline
 }
 
 .stocklist {
     text-decoration: none;
-    /* border: solid black 1px; */
-    /* margin: 2px; */
     padding: 7px        
 }
 
@@ -76,6 +69,4 @@ table {
 
 .container {
     display: flex;
-    /* justify-content: flex-start; */
-    /* align-items: center */
 }

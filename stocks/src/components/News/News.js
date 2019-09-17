@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./News.css"
+import "./News.css";
 
 class News extends Component {
   constructor() {
@@ -31,7 +31,7 @@ class News extends Component {
       return (
         <div className="container">
           <div className="urltoimage">
-              {/* <img src={news.urlToImage} /> */}
+            {/* <img src={news.urlToImage} /> */}
           </div>
           <div className="newstext">
             <a href={news.url}>
@@ -43,7 +43,12 @@ class News extends Component {
         </div>
       );
     });
-    return <div>{newsList}</div>;
+    return (
+      <div>
+        <h2>News</h2>
+        {newsList}
+      </div>
+    );
   }
 }
 

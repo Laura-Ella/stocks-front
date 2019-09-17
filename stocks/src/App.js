@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {BrowserRouter as Router, Route} from "react-router-dom"
-import Stocks from "./components/Stocks/Stocks";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import Watchlist from "./components/Watchlist/Watchlist";
 import axios from "axios";
-import "./App.css";
 import StockDetail from "./components/StockDetail/StockDetail";
 import Home from "./components/Home/Home";
-import Chart from "./components/Chart/Chart"
-import News from "./components/News/News"
+import News from "./components/News/News";
+import "./App.css";
+
 
 class App extends Component {
   constructor(props) {
@@ -68,6 +67,7 @@ class App extends Component {
 
   render() {
     console.log(this.state.matches);
+    console.log(this.state.search)
     return (
       <div>
         <nav>
@@ -83,13 +83,6 @@ class App extends Component {
         exact render={routerProps => (
           <Home stocks={this.state.stocks} {...routerProps} />
         )} />
-        {/* <Route
-          path="/stocks"
-          exact
-          render={routerProps => (
-            <Stocks stocks={this.state.stocks} {...routerProps} />
-          )}
-        /> */}
         <Route path="/news" exact component={News}/>
         <Route
           path="/watchlist/"
